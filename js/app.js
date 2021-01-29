@@ -2,11 +2,7 @@
 
 // get each store element by id
 
-const hours = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm' ];
-
-function randomCustomerPerHour () {
-  // get the randomCustomerPerHour
-}
+const hours = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm'];
 
 let seattle = {
   name: 'Seattle',
@@ -22,30 +18,63 @@ let seattle = {
   dailyStoreTotal: 0,
   // A method to calculate random number of customers per hour
   // Docs used: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
-  randomCustomerEachHour: function(){
-    // console.log('Im in randomCustomerEachHour');
+  generateRandomCustomerInAnHour: function () {
+
+    console.log('getting random number of customers');
     // Generates a random number of customers inclusive of the min and the max
-    return Math.floor(Math.random() * (this.maximumCustomerEachHour - this.minimumCustomerEachHour + 1) + this.minimumCustomerEachHour);
+    let randomNumberOfCustomers = Math.floor(Math.random() * (this.maximumCustomerEachHour - this.minimumCustomerEachHour + 1) + this.minimumCustomerEachHour);
+
+    console.log(`Random number of customers: ${randomNumberOfCustomers}`);
+    return randomNumberOfCustomers;
   },
+
   // A method to calculate and populate our number of cookies sold per hour array
-  calcCookiesSoldEachHour: function () {
-    let randomCustomerForOneHour = this.randomCustomerEachHour();
-    console.log(randomCustomerForOneHour);
-    console.log('I am inside of calCookiesSoldEachHour');
-    // Do something maybe use a for loop
-    // Multiply customer number by average
-    // Handle the number, do some rounding
-    // Proof of life
-    // Push into the cookiesSoldPerHourArray
+  generateCookiesSoldInAnHour: function () {
+
+    console.log(' here we are getting the total cookies for this hour!');
+    // getting the number of customers for this hour
+    let randomCustomerForOneHour = this.generateRandomCustomerInAnHour();
+
+    console.log(`Random customer per hour: ${randomCustomerForOneHour}`);
+
+    // Getting number of cookies sold this hour
+    let totalCookiesThisHour = randomCustomerForOneHour * this.averageCookiesSoldPerCustomer;
+
+    console.log(`Total cookies this hour: ${totalCookiesThisHour}`);
+
+    return totalCookiesThisHour;
   },
+
+  generateCookieSales: function () {
+    console.log('About to start generating cookie sales!!')
+
+    // Here we need to get cookies sold per hour
+    let totalCookiesThisHour = this.generateCookiesSoldInAnHour();
+    this.cookiesSoldPerHourArray.push(totalCookiesThisHour);
+    console.log(`total cookies this hour: ${totalCookiesThisHour}`);
+    console.log(this.cookiesSoldPerHourArray);
+
+  },
+
   // A method to render the list items
-  render: funcation (){
+  render: function(){
     this.calcCookiesSoldEachHour();
     console.log('I am in the render method');
     // Do something
-  }
+  },
+
 };
 
-let paris = {
-  
-}
+
+seattle.generateCookieSales();
+
+// TODO: Need two elements by ID for the 5 lists
+
+
+
+// Write 5 object literals - will finish the first one first, then do the others based on THAT
+
+
+
+// Executable Code
+// seattle.render();
