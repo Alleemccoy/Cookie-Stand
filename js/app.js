@@ -42,17 +42,22 @@ let seattle = {
 
     console.log(`Total cookies this hour: ${totalCookiesThisHour}`);
 
-    return totalCookiesThisHour;
+    return Math.round(totalCookiesThisHour);
   },
 
   generateCookieSales: function () {
-    console.log('About to start generating cookie sales!!')
+    console.log('About to start generating cookie sales!!');
 
-    // Here we need to get cookies sold per hour
-    let totalCookiesThisHour = this.generateCookiesSoldInAnHour();
-    this.cookiesSoldPerHourArray.push(totalCookiesThisHour);
-    console.log(`total cookies this hour: ${totalCookiesThisHour}`);
-    console.log(this.cookiesSoldPerHourArray);
+    // Refactoring code to generate cookies for each hour
+    for(var i = 0; i < hours.length; i++){
+      let totalCookiesThisHour = this.generateCookiesSoldInAnHour();
+      this.cookiesSoldPerHourArray.push(totalCookiesThisHour);
+      console.log(`total cookies this hour: ${totalCookiesThisHour}`);
+      console.log(this.cookiesSoldPerHourArray);
+
+      // console.log(i)
+      // console.log(hours[i]);
+    }
 
   },
 
