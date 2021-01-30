@@ -31,7 +31,7 @@ let seattle = {
   // A method to calculate and populate our number of cookies sold per hour array
   generateCookiesSoldInAnHour: function () {
 
-    console.log(' here we are getting the total cookies for this hour!');
+    console.log('Here we are getting the total cookies for this hour!');
     // getting the number of customers for this hour
     let randomCustomerForOneHour = this.generateRandomCustomerInAnHour();
 
@@ -63,22 +63,27 @@ let seattle = {
 
   // A method to render the list items
   render: function(){
-    this.calcCookiesSoldEachHour();
+    let ul = document.getElementById('seattle');
+    for(let i = 0; i < hours.length; i++){
+      let listItem = document.createElement('li');
+      listItem.textContent = `${hours[i]} : ${seattle.cookiesSoldPerHourArray[i]}`;
+      ul.appendChild(listItem);
+
+    }
+
     console.log('I am in the render method');
-    // Do something
   },
 
 };
 
 
 seattle.generateCookieSales();
+seattle.render();
 
 // TODO: Need two elements by ID for the 5 lists
 
 
-
 // Write 5 object literals - will finish the first one first, then do the others based on THAT
-
 
 
 // Executable Code
