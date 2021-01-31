@@ -30,17 +30,18 @@ function CookieStand (location, minCustPerHr, maxCustPerHr, avgCookieSold) {
   this.maxCustPerHr = maxCustPerHr;
   this.avgCookieSold = avgCookieSold;
   this.dailySoldTotal = 0;
-  this.cookiesSoldPerHr = 0;
+  this.cookiesSoldPerHr = [];
   locationNames.push(this);
 }
 
 // CookieStand.prototype
 
 let seattle = new CookieStand('Seattle', 23, 65, 6.3);
-console.log(seattle);
+// console.log(seattle);
 
 let renderHeaderRow = function(){
-  let trElement = document.createElement('tr');
+  let trElement = document.createElement('row');
+  console.log(trElement);
   let thElement = document.createElement('th');
   thElement.textContent = 'Location';
   trElement.appendChild(thElement);
@@ -53,6 +54,22 @@ let renderHeaderRow = function(){
 };
 
 renderHeaderRow();
+
+let renderHeaderRow = function() {
+  let body = document.getElementById('body');
+  let trElement = document.createElement('tr');
+  for (let i = 0; i < locationNames.length; i++) {
+    let tdElement = document.createElement('th');
+    tdElement.textContent = locationNames[i].location;
+    trElement.appendChild(thElement);
+  for (let j = 0; j < locationNames[i].cookiesSoldPerHr.length; j++) {
+    let tdElement = document.createElement('td');
+    tdElement.textContent = locationNames[i].cookiesSoldPerHr[j];
+    trElement.appendChild(tdElement);
+  }
+  body.appendChild(trElement);
+  }
+
 
 //end new 1/30/2021
 
