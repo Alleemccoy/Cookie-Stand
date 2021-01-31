@@ -276,3 +276,6 @@ let lima = {
 
 lima.render();
 
+
+// Sudo Code
+// total calculations
