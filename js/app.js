@@ -50,6 +50,7 @@ new CookieStand('Dubai', 11, 38, 3.7);
 new CookieStand('Paris', 20, 38, 2.3);
 new CookieStand('Lima', 2, 16, 4.6);
 
+
 let renderHeaderRow = function () {
   let trElement = document.getElementById('row');
   // console.log(trElement);
