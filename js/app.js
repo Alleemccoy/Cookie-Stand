@@ -1,5 +1,6 @@
 'use strict';
 
+let myForm = document.querySelector('form');
 
 const locationNames = [];
 
@@ -17,6 +18,7 @@ function CookieStand(location, minCustPerHr, maxCustPerHr, avgCookieSold) {
   this.cookieSoldPerHr = [];
   this.calCookiesSoldEachHour();
   this.grandTotalsCalc();
+  this.renderStoreRow();
   locationNames.push(this);
 }
 
@@ -44,6 +46,23 @@ CookieStand.prototype.calCookiesSoldEachHour = function () {
   // console.log(this.dailySoldTotal);
 };
 
+CookieStand.prototype.renderStoreRow = function () {
+  let body = document.getElementById('body');
+  let trElement = document.createElement('tr');
+  let thElement = document.createElement('th');
+  thElement.textContent = this.location;
+  trElement.appendChild(thElement);
+  for (let j = 0; j < this.cookieSoldPerHr.length; j++) {
+    let tdElement = document.createElement('td');
+    tdElement.textContent = this.cookieSoldPerHr[j];
+    trElement.appendChild(tdElement);
+  }
+  let tdElement = document.createElement('td');
+  tdElement.textContent = this.dailySoldTotal;
+  trElement.appendChild(tdElement);
+  body.appendChild(trElement);
+};
+
 new CookieStand('Seattle', 23, 65, 6.3);
 new CookieStand('Tokyo', 3, 24, 1.2);
 new CookieStand('Dubai', 11, 38, 3.7);
@@ -67,41 +86,46 @@ let renderHeaderRow = function () {
   trElement.appendChild(tdElement);
 };
 
-renderHeaderRow ();
+renderHeaderRow();
 
 
-let renderStoreRow = function () {
-  let body = document.getElementById('body');
-  for (let i = 0; i < locationNames.length; i++) {
-    let trElement = document.createElement('tr');
-    let thElement = document.createElement('th');
-    thElement.textContent = locationNames[i].location;
-    trElement.appendChild(thElement);
-    for (let j = 0; j < locationNames[i].cookieSoldPerHr.length; j++) {
-      let tdElement = document.createElement('td');
-      tdElement.textContent = locationNames[i].cookieSoldPerHr[j];
-      trElement.appendChild(tdElement);
-    }
-    let tdElement = document.createElement('td');
-    tdElement.textContent = locationNames[i].dailySoldTotal;
-    trElement.appendChild(tdElement);
-    body.appendChild(trElement);
-  }
-};
 
-renderStoreRow();
+
+// renderStoreRow();
 
 let renderFooterRow = function () {
-  let footer = document.getElementById('foot-row');
+  let footer = document.getElementById('footer');
+  let trElement = document.createElement('tr');
   let thElement = document.createElement('th');
   thElement.textContent = 'Grand Total';
-  footer.appendChild(thElement);
+  trElement.appendChild(thElement);
   // console.log(grandTotals);
   for (let i = 0; i < grandTotals.length; i++) {
     let tdElement = document.createElement('td');
     tdElement.textContent = grandTotals[i];
-    footer.appendChild(tdElement);
+    trElement.appendChild(tdElement);
   }
+  footer.appendChild(trElement);
 };
 
 renderFooterRow();
+
+
+function handleSubmit(event) {
+  event.preventDefault();
+  let location = event.target.addLocation.value;
+  console.log(location);
+  let miniCust = +event.target.miniCust.value;
+  console.log(miniCust);
+  let maxCust = +event.target.maxCust.value;
+  console.log(maxCust);
+  let avgCookies = +event.target.avgCookies.value;
+  console.log(avgCookies);
+  new CookieStand(location, miniCust, maxCust, avgCookies);
+  let footer = document.getElementById('footer');
+  footer.removeChild(footer.firstChild);
+  renderFooterRow();
+  // renderStoreRow();
+}
+
+myForm.addEventListener('submit', handleSubmit);
